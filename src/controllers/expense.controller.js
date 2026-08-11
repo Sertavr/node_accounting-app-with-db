@@ -2,7 +2,7 @@ const expenseService = require('../services/expense.service');
 const userService = require('../services/user.service');
 
 const get = async (req, res) => {
-  const { userId, category, from, to } = req.query;
+  const { userId, categories, from, to } = req.query;
 
   res.json(
     (
@@ -10,7 +10,7 @@ const get = async (req, res) => {
         from,
         to,
         userId,
-        category,
+        category: categories,
       })
     ).map(expenseService.normalize),
   );
