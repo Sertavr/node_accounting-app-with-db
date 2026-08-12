@@ -4,13 +4,22 @@ const userService = require('../services/user.service');
 const get = async (req, res) => {
   const { userId, categories, from, to } = req.query;
 
+  /* eslint-disable indent */
+  const categoriesArr = categories
+    ? categories
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : [];
+  /* eslint-enable indent */
+
   res.json(
     (
       await expenseService.getAll({
         from,
         to,
         userId,
-        category: categories,
+        category: categoriesArr,
       })
     ).map(expenseService.normalize),
   );
@@ -55,16 +64,16 @@ const create = async (req, res) => {
 
   res.status(201).json(expenseService.normalize(newExpense));
 };
-const remove = (req, res) => {
+const remove = async (req, res) => {
   const { id } = req.params;
 
-  if (!expenseService.getById(id)) {
+  if (!(await expenseService.getById(id))) {
     res.sendStatus(404);
 
     return;
   }
 
-  expenseService.remove(id);
+  await expenseService.remove(id);
 
   res.sendStatus(204);
 };

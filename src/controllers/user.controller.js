@@ -15,7 +15,9 @@ const getOne = async (req, res) => {
     return;
   }
 
-  res.send(user);
+  // res.send(user);
+
+  res.json(user);
 };
 const create = async (req, res) => {
   const { name } = req.body;
@@ -29,7 +31,9 @@ const create = async (req, res) => {
   const user = await userService.create(name);
 
   res.statusCode = 201;
-  res.send(user);
+  // res.send(user);
+
+  res.status(201).json(user);
 };
 const remove = async (req, res) => {
   const { id } = req.params;

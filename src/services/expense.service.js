@@ -18,8 +18,8 @@ const getAll = async ({ userId, from, to, category }) => {
     where.userId = userId;
   }
 
-  if (category) {
-    where.category = category;
+  if (category && category.length > 0 && Array.isArray(category)) {
+    where.category = { [Op.in]: category };
   }
 
   if (from || to) {
