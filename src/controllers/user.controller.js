@@ -30,9 +30,6 @@ const create = async (req, res) => {
 
   const user = await userService.create(name);
 
-  res.statusCode = 201;
-  // res.send(user);
-
   res.status(201).json(user);
 };
 const remove = async (req, res) => {
@@ -44,10 +41,11 @@ const remove = async (req, res) => {
     return;
   }
 
-  userService.remove(id);
+  await userService.remove(id);
 
   res.sendStatus(204);
 };
+
 const update = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;

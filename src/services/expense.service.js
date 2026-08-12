@@ -41,7 +41,7 @@ const getAll = async ({ userId, from, to, category }) => {
 
 const getById = (id) => Expense.findByPk(id);
 
-const create = ({
+const create = async ({
   userId,
   spentAt,
   title,
@@ -49,7 +49,7 @@ const create = ({
   category = null,
   note = null,
 }) => {
-  const newExpense = Expense.create({
+  const newExpense = await Expense.create({
     userId,
     spentAt,
     title,

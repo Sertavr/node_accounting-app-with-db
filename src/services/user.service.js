@@ -6,8 +6,8 @@ const getAll = async () => {
   return result;
 };
 const getById = (id) => User.findByPk(id);
-const create = (name) => {
-  const newUser = User.create({ name });
+const create = async (name) => {
+  const newUser = await User.create({ name });
 
   return newUser;
 };
